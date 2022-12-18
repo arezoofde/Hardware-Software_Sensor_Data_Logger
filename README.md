@@ -55,4 +55,6 @@ You can get the app from the [Play Store](https://play.google.com/store/apps/det
 |PA9 | ESP8266 | UART TX |
 |PA10 | ESP8266 | UART RX |
 
-
+### Format Packet
+| 0 | / | R | / | G | / | B | / | Data | / | time | / | temp | / | hu | / | L1 | / | L2 | / | L3 | / | SDcard |
+|---|---|---|---|---|---|---|---|------|---|------|---|------|---|----|---|----|---|----|---|----|---|--------|
