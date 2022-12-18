@@ -7,28 +7,52 @@ You can get the app from the [Play Store](https://play.google.com/store/apps/det
 ![Screencast](https://raw.githubusercontent.com/Steppschuh/Sensor-Data-Logger/master/Media/Screencasts/sensor_data_bw_long_500.gif)
 
 
-### Visualize all the data
-The sensor data logger can display data from all generic sensor types, such as acceleration, force of gravity or magnetic field. In addition, it can visualize all device specific sensors that you might have, such as double tap, step detection or temperature.
-
-### Android Wear support
-Data from every sensor of connected Android Wear devices can be streamed to the app in real-time, even from multiple devices at once. Just open the app on your watch and you are good to go.
-
-### Exporting in development
-You'll be able to record and export the collected data to JSON or CSV files in an upcoming release.
 
 ### Tested sensor types
-- Accelerometer
-- Double Tap
-- Gravity
-- Gyroscope
 - Humidity
-- Light
-- Linear Acceleration
-- Magnetometer
-- Orientation
-- Pressure
-- Proximity
-- Rotation Vector
-- Step Counter
-- Step Detector
+- Light RGB
 - Temperature
+
+### Data Lagger 
+| Project Name    | Project Details                                                               | 
+|-----------------|-------------------------------------------------------------------------------|
+| KEYPAD _RTC     | Password Login + Data and Time                                                |
+| RGB_Buzzer      | Light Color Control + Alarm Sound                                             |
+| DHT11           | Temperature and Humidity Show                                                 |
+| LCD16x2         | Show Data & Time + Temp & Hum + RS232 Data + server connection + setPassword + LED + Push BTN |
+| ESP8266         | Send Data to Server                                                           |
+| RS232           | Send UART Data to ESP8266                                                     |
+| SDCARD          | Save Packet in SDCARD                                                         |
+
+### MCU PIN CONFIG
+|  pinout | sensor | Description |
+|---------|--------|-------------|
+| PC0 | LED1 | GREEN LED |
+| PC2 | LED2 | YELLOW LEd |
+|PC3 | LED3 | RED LED |
+|PA5 | PBTN1 | Push Button |
+|PA3 | PBTN2 | Push Button |
+|PA4 | PBTN3 | Push Button |
+|PE9 | RGB | RED in RGB |
+|PE11| RGB | GREEN in RGB |
+|PE13 | RGB | BLUE in RGB |
+|PE14 | Buzzer | Alarm |
+|PD8 | LCD | RS pin |
+|PD9 | LCD | EN pin |
+|PD10 | LCD | D4 pin |
+|PD11 | LCD | D5 pin |
+|PD12 | LCD | D6 pin |
+|PD13 | LCD | D7 pin |
+|PD14 | DHT11 |  Show Temperatre & Humidity |
+|PF2 | KEYPAD | R0 pin |
+|PF3 | KEYPAD  | R1 pin |
+|PF4 | KEYPAD  | R2 pin |
+|PF5 | KEYPAD  | R3 pin |
+|PF6 | KEYPAD  | C0 pin |
+|PF7 | KEYPAD  | C1 pin |
+|PF8 | KEYPAD  | C2 pin |
+|PF9 | KEYPAD  | C3 pin |
+|PA9 | ESP8266 | UART TX |
+|PA10 | ESP8266 | UART RX |
+
+
