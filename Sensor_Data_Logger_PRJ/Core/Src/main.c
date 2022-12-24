@@ -22,10 +22,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "lcd.h"
 #include <stdio.h>
 #include <string.h>
-#include "DHT.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,7 +50,8 @@ TIM_HandleTypeDef htim1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-
+char i = 0;
+char percent=255;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -68,6 +67,12 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+void set_rgb(uint32_t red ,uint32_t green , uint32_t blue){
+	 htim1.Instance->CCR1 = red;
+	 htim1.Instance->CCR2 = green;
+	 htim1.Instance->CCR3 = blue;
+}
 
 /* USER CODE END 0 */
 
@@ -105,11 +110,12 @@ int main(void)
   MX_USART1_UART_Init();
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
-  lcd_init();
-  lcd_clear();
-  lcd_puts(0U, 0U, "LCD Project Test");
-  HAL_Delay (1000);
-  lcd_clear();
+
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -119,6 +125,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+
+	//RGB
+	set_rgb (240,50,240);
+
+
+	HAL_GPIO_WritePin(GPIOE, BUZZER_Pin,GPIO_PIN_SET);               //If pressed Ring Buzzer
+
+
   }
   /* USER CODE END 3 */
 }
@@ -337,6 +352,7 @@ static void MX_TIM1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM1_Init 2 */
+  HAL_TIM_MspPostInit(&htim1);
 
   /* USER CODE END TIM1_Init 2 */
   HAL_TIM_MspPostInit(&htim1);
