@@ -1,7 +1,0 @@
-23:27:59 **** Incremental Build of configuration Debug for project Sensor_Data_Logger_PRJ ****
-make -j4 all 
-arm-none-eabi-size   Sensor_Data_Logger_PRJ.elf 
-   text	   data	    bss	    dec	    hex	filename
-  48596	    508	   2004	  51108	   c7a4	Sensor_Data_Logger_PRJ.elf
-Finished building: default.size.stdout
- 
