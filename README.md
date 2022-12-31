@@ -1,7 +1,7 @@
 # RGB_BUZZER Project 
 
 
-#### The purpose of this project is to implement RGB and Buzzer, which we implemented using the code snippet below. :shipit:
+#### The purpose of this project is to implement RGB and Buzzer, which we implemented using the code snippet below. :point_down:
 
 
 
