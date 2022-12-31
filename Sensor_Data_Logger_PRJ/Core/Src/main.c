@@ -131,9 +131,17 @@ int main(void)
 	set_rgb (240,50,240);
 
 
-	HAL_GPIO_WritePin(GPIOE, BUZZER_Pin,GPIO_PIN_SET);               //If pressed Ring Buzzer
+	HAL_GPIO_WritePin(GPIOE, BUZZER_Pin,GPIO_PIN_SET);  
+               //If pressed Ring Buzzer
 
-
+  uint8_t value = 0; // the value for the duty cycle
+while (value<255)
+{
+    htim1.Instance->CCR4 = value; 
+    value += 20; 
+    HAL_Delay (500); 
+}
+  value = 0; 
   }
   /* USER CODE END 3 */
 }
