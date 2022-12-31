@@ -1,6 +1,6 @@
 --> DHT11 Project <--
 
-ّA brief explanation about the DHT11 sensor that we use in our project:
+A brief explanation about the DHT11 sensor that we use in our project:
 
 DHT11 Temperature & Humidity Sensor features a temperature & humidity sensor complex with a calibrated digital signal output. 
 By using the exclusive digital-signal-acquisition technique and temperature & humidity sensing technology, it ensures high reliability and excellent long-term stability. 
