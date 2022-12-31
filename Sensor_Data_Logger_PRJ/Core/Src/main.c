@@ -26,6 +26,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "DHT.h"
+#include "eeprom.h"
+
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -110,6 +113,219 @@ int main(void)
   lcd_puts(0U, 0U, "LCD Project Test");
   HAL_Delay (1000);
   lcd_clear();
+
+  //Date and Time
+  char date[11];
+  char time[10];
+  RTC_DateTypeDef gDate;
+  RTC_TimeTypeDef gTime;
+
+  //Temperature and Humidity
+  DHT_sensor sensor = {
+  	GPIOD,
+  	GPIO_PIN_14,
+  	DHT11,
+  	GPIO_NOPULL };
+
+  	lcd_init();
+  	lcd_clear();
+  	DHT_data data;
+  	char message1[50];
+  	char message2[50];
+  	uint8_t i = 1;
+
+
+  	//Server connection
+
+  	// this function must called at the same time as the request sent to the server.
+  	//print (connecting...) every 650 ms.
+  	//user waits for the server response and view it through the Connection_Status function
+  	void Check_Internet()
+  	{
+  		lcd_init();
+  		lcd_clear();
+  		lcd_puts(0U, 0U, "Connecting...");
+  		HAL_Delay (650);
+  		lcd_clear();
+  	}
+
+  	//this function is called when the server has analyzed the request
+  	//and returned a response(accept or reject)
+  	//the response is indicated by the variable the LCD
+  	void Connection_Status(uint32_t Is_Connect)
+  	{
+  		lcd_init();
+  		// if user accepted by the server (is_connect=1) => print connected on lcd
+  		if(Is_Connect==1)
+  		{
+  			lcd_clear();
+  			lcd_puts(0U, 0U, "Connected");
+  		}
+
+  		// if user rejected by the server(is_connect=2) => print NotConnect on lcd
+  		if(Is_Connect==2)
+  		{
+  			lcd_clear();
+  			lcd_puts(0U, 0U, "NotConnect");
+  		}
+  	}
+
+
+  	//Set password
+  	char arr_3[40]= "3-Enter PW";
+  	int num=0;
+  	unsigned char password[4];
+
+  	unsigned char KEY_PRESS(void)
+  	{
+  	  static char input[4];
+  	  static int i=0;
+  	  i++;
+  	  int key_press;
+
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_2, GPIO_PIN_SET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_3, GPIO_PIN_RESET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_4, GPIO_PIN_RESET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, GPIO_PIN_RESET);
+  	  if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_6)==1)
+  	  {
+  	    key_press = 49; //ASCII value of 1
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return '1';
+  	  }
+  	  else if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_7)==1)
+  	  {
+  	    key_press = 52; //ASCII value of 4
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return '4';
+  	  }
+  	  else if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_8) ==1)
+  	  {
+  	    key_press = 55; //ASCII value of 7
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return '7';
+  	  }
+  	  else if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_9) ==1)
+  	  {
+  	    key_press = 42; //ASCII value of *
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return '*';
+  	  }
+
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_2, GPIO_PIN_RESET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_3, GPIO_PIN_SET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_4, GPIO_PIN_RESET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, GPIO_PIN_RESET);
+  	  if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_6) ==1)
+  	  {
+  	    key_press = 50; //ASCII value of 2
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return '2';
+  	  }
+  	  else if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_7) ==1)
+  	  {
+  	    key_press = 53; //ASCII value of 5
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return '5';
+  	  }
+  	  else if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_8) ==1)
+  	  {
+  	    key_press = 56; //ASCII value of 8
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return '8';
+  	  }
+  	  else if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_9)==1)
+  	  {
+  	    key_press = 48; //ASCII value of 0
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return '0';
+  	  }
+
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_2, GPIO_PIN_RESET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_3, GPIO_PIN_RESET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_4, GPIO_PIN_SET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, GPIO_PIN_RESET);
+  	  if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_6)==1)
+  	  {
+  	    key_press = 51; //ASCII value of 3
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return '3';
+  	  }
+  	  else if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_7)==1)
+  	  {
+  	    key_press = 54; //ASCII value of 6
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return '6';
+  	  }
+  	  else if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_8)==1)
+  	  {
+  	    key_press = 57; //ASCII value of 9
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return 9;
+  	  }
+  	  else if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_9)==1)
+  	  {
+  	    key_press = 35; //ASCII value of #
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return '#';
+  	  }
+
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_2, GPIO_PIN_RESET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_3, GPIO_PIN_RESET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_4, GPIO_PIN_RESET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, GPIO_PIN_SET);
+  	  if( HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_6) == 1)
+  	  {
+  	    key_press = 65; //ASCII value of A
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return 'A';
+  	  }
+  	  else if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_7)==1)
+  	  {
+  	    key_press = 66; //ASCII value of B
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return 'B';
+  	  }
+  	  else if(HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_8)==1)
+  	  {
+  	    key_press = 67; //ASCII value of C
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return 'C';
+  	  }
+  	  else if( HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_9) == 1)
+  	  {
+  	    key_press = 68; //ASCII value of D
+  	    sprintf(input, "%c", key_press);
+  	    lcd_puts(1U, 0U, input);
+  	    return 'D';
+  	  }
+
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_2, GPIO_PIN_SET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_3, GPIO_PIN_SET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_4, GPIO_PIN_SET);
+  	  HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, GPIO_PIN_SET);
+  	  if(i==4){
+  		  for(int j=0;j<4;i++)
+  			  input[j] = 0;
+  		  i=0;
+  	  }
+  	}
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -117,6 +333,58 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+	  i = KEY_PRESS();
+
+	  switch(i)
+	  {
+	  	  //Temperature and Humidity
+		  case 1:
+			  lcd_clear();
+
+			  data = DHT_getData(&sensor);
+			  sprintf(message1 , "Temprature is : %F",data.temp);
+			  lcd_puts(0,0,message1);
+			  sprintf(message2,"Humidity is : %F",data.hum);
+			  lcd_puts(1,0,message2);
+			  break;
+
+		  //Date and Time
+		  case 2:
+			  lcd_clear();
+			  HAL_RTC_GetTime(&hrtc, &gTime, RTC_FORMAT_BIN);
+			  HAL_RTC_GetDate(&hrtc, &gDate, RTC_FORMAT_BIN);
+			  lcd_clear();
+			  sprintf((char*)time,"%2.2d:%2.2d:%2.2d", gTime.Hours, gTime.Minutes, gTime.Seconds);
+			  lcd_puts(0U, 0U, time);
+			  sprintf((char*)date,"20%2.2d/%2.2d/%2.2d", gDate.Year, gDate.Month, gDate.Date);
+			  lcd_puts(1U, 0U, date);
+			  HAL_Delay(1000);
+			  break;
+
+		  //Server connection
+		  case 3:
+			  Check_Internet();
+			  Connection_Status(1);
+
+		  //Set password
+		  case 4:
+			  lcd_puts(0U, 0U, arr_3);
+			  while(num!=4)
+			  {
+				  password[num]=KEY_PRESS();
+				  EE_WriteVariable(num, password[num]);
+			  	  num++;
+			  }
+			  HAL_Delay(10U);
+			  lcd_clear();
+			  break;
+
+		  //RS232
+		  case 5:
+			  //ESP8266.ino file
+			  break;
+	  }
+
 
     /* USER CODE BEGIN 3 */
   }

@@ -68,8 +68,8 @@ all: main-build
 main-build: Sensor_Data_Logger_PRJ.elf secondary-outputs
 
 # Tool invocations
-Sensor_Data_Logger_PRJ.elf Sensor_Data_Logger_PRJ.map: $(OBJS) $(USER_OBJS) C:\Users\pa\Desktop\Sensor_Data_Logger\Sensor_Data_Logger_PRJ\STM32F103ZETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Sensor_Data_Logger_PRJ.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\pa\Desktop\Sensor_Data_Logger\Sensor_Data_Logger_PRJ\STM32F103ZETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Sensor_Data_Logger_PRJ.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Sensor_Data_Logger_PRJ.elf Sensor_Data_Logger_PRJ.map: $(OBJS) $(USER_OBJS) D:\Projects\STM32\Hardware-Software_Sensor_Data_Logger\Sensor_Data_Logger_PRJ\STM32F103ZETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Sensor_Data_Logger_PRJ.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\Projects\STM32\Hardware-Software_Sensor_Data_Logger\Sensor_Data_Logger_PRJ\STM32F103ZETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Sensor_Data_Logger_PRJ.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
