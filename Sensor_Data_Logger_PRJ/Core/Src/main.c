@@ -53,6 +53,26 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
+//char sample_packet[100] = "0/17/43/122/1672300812/7/47/1/1/1/7";
+
+
+/* Arbitrary values */
+
+uint8_t r = 17;
+uint8_t g = 43;
+uint8_t b = 122;
+uint32_t time = 1672300812;
+int8_t temp = 7;
+uint8_t hue = 47;
+uint8_t red = 1;
+uint8_t green = 1;
+uint8_t blue = 1;
+uint8_t speaker = 7;
+
+char buffer[100];
+char log_name[20];
+int log_idx = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -68,6 +88,27 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+FATFS fatfs;
+FIL *file;
+FRESULT fResult;
+UINT *bw;
+
+void send_to_sdcard(char *packet_text, TCHAR *file_name) {
+
+	fResult = f_mount(&fatfs, "", 1);
+	if (fResult != FR_OK)
+		return;
+
+	fResult = f_open(file, file_name,
+	FA_WRITE | FA_OPEN_ALWAYS | FA_CREATE_ALWAYS);
+	if (fResult != FR_OK)
+		return;
+
+	fResult = f_write(file, packet_text, strlen(packet_text), bw);
+
+	f_close(file);
+}
 
 /* USER CODE END 0 */
 
@@ -119,6 +160,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    
+		sprintf(buffer, "0/%u/%u/%u/%lu/%d/%u/%u/%u/%u/%u", r, g, b, time, temp, hue, red, green, blue, speaker);
+		sprintf(log_name, "packet_%d.txt", log_idx);
+
+		send_to_sdcard(buffer, (TCHAR*)log_name);
+
+		HAL_Delay(10000);
+
+		log_idx++;
   }
   /* USER CODE END 3 */
 }
