@@ -130,10 +130,6 @@ int main(void)
 	//RGB
 	set_rgb (240,50,240);
 
-
-	HAL_GPIO_WritePin(GPIOE, BUZZER_Pin,GPIO_PIN_SET);  
-               //If pressed Ring Buzzer
-
   uint8_t value = 0; // the value for the duty cycle
 while (value<255)
 {
