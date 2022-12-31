@@ -3,7 +3,7 @@
 
 #### The purpose of this project is to implement RGB and Buzzer, which we implemented using the code snippet below.
 
-#RGB  AND  BUZZER
+RGB  AND  BUZZER
 
 
 ```
