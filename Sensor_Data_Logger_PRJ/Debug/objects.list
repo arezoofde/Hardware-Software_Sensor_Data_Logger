@@ -1,5 +1,8 @@
 "./Core/Src/DHT.o"
+<<<<<<< HEAD
 "./Core/Src/eeprom.o"
+=======
+>>>>>>> master
 "./Core/Src/lcd.o"
 "./Core/Src/main.o"
 "./Core/Src/stm32f1xx_hal_msp.o"

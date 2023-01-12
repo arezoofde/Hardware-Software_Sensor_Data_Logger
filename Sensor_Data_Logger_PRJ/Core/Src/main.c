@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "fatfs.h"
+<<<<<<< HEAD
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -28,6 +29,16 @@
 #include "DHT.h"
 #include "stm32f1xx_hal_conf.h"
 #include "stm32f1xx_it.h"
+=======
+#include "DHT.h"
+#include "lcd.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include "stdlib.h"
+#include "string.h"
+#include "stdio.h"
+>>>>>>> master
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,9 +56,12 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+<<<<<<< HEAD
 I2C_HandleTypeDef hi2c1;
 I2C_HandleTypeDef hi2c2;
 
+=======
+>>>>>>> master
 RTC_HandleTypeDef hrtc;
 
 SD_HandleTypeDef hsd;
@@ -67,8 +81,11 @@ static void MX_RTC_Init(void);
 static void MX_SDIO_SD_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_USART1_UART_Init(void);
+<<<<<<< HEAD
 static void MX_I2C1_Init(void);
 static void MX_I2C2_Init(void);
+=======
+>>>>>>> master
 /* USER CODE BEGIN PFP */
 unsigned char KEY_PRESS(void)
 {
@@ -246,6 +263,7 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -262,6 +280,7 @@ int main(void)
   MX_TIM1_Init();
   MX_USART1_UART_Init();
   MX_FATFS_Init();
+<<<<<<< HEAD
   MX_I2C1_Init();
   MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
@@ -295,13 +314,26 @@ int main(void)
   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_8 |GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13, GPIO_PIN_RESET);
 
   lcd_init();                     //LCD initialization function
+=======
+  /* USER CODE BEGIN 2 */
+	DHT_sensor sensor = {
+	GPIOD,
+	GPIO_PIN_14,
+	DHT11,
+	GPIO_NOPULL };
+>>>>>>> master
 
+	lcd_init();
+	DHT_data my_data;
+	char msg1[40];
+	char msg2[40];
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+<<<<<<< HEAD
 	  lcd_clear();
 	  lcd_puts(0U, 0U, arr_1);
 	  lcd_puts(1U, 0U, arr_2);
@@ -347,6 +379,16 @@ int main(void)
  	  lcd_puts(1U, 0U, date);
  	  HAL_Delay(1000);
 
+=======
+
+	  my_data = DHT_getData(&sensor);
+	  sprintf(msg1 , "Humidity is : %f",my_data.hum);
+	  lcd_puts(0,0,msg1);
+	  sprintf(msg2,"Temprature is : %f",my_data.temp);
+	  lcd_puts(1,0,msg2);
+
+	  //lcd_clear();
+>>>>>>> master
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -402,6 +444,7 @@ void SystemClock_Config(void)
 }
 
 /**
+<<<<<<< HEAD
   * @brief I2C1 Initialization Function
   * @param None
   * @retval None
@@ -474,6 +517,12 @@ static void MX_I2C2_Init(void)
   * @param None
   * @retval None
   */
+=======
+  * @brief RTC Initialization Function
+  * @param None
+  * @retval None
+  */
+>>>>>>> master
 static void MX_RTC_Init(void)
 {
 
@@ -689,7 +738,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOE_CLK_ENABLE();
+<<<<<<< HEAD
   __HAL_RCC_GPIOB_CLK_ENABLE();
+=======
+>>>>>>> master
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */

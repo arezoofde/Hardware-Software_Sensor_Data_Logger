@@ -1,14 +1,18 @@
 #MicroXplorer Configuration settings - do not modify
 File.Version=6
 GPIO.groupedBy=Group By Peripherals
+<<<<<<< HEAD
 I2C1.I2C_Mode=I2C_Fast
 I2C1.IPParameters=I2C_Mode
 I2C2.I2C_Mode=I2C_Fast
 I2C2.IPParameters=I2C_Mode
+=======
+>>>>>>> master
 KeepUserPlacement=false
 Mcu.CPN=STM32F103ZET6
 Mcu.Family=STM32F1
 Mcu.IP0=FATFS
+<<<<<<< HEAD
 Mcu.IP1=I2C1
 Mcu.IP2=I2C2
 Mcu.IP3=NVIC
@@ -19,6 +23,16 @@ Mcu.IP7=SYS
 Mcu.IP8=TIM1
 Mcu.IP9=USART1
 Mcu.IPNb=10
+=======
+Mcu.IP1=NVIC
+Mcu.IP2=RCC
+Mcu.IP3=RTC
+Mcu.IP4=SDIO
+Mcu.IP5=SYS
+Mcu.IP6=TIM1
+Mcu.IP7=USART1
+Mcu.IPNb=8
+>>>>>>> master
 Mcu.Name=STM32F103Z(C-D-E)Tx
 Mcu.Package=LQFP144
 Mcu.Pin0=PC14-OSC32_IN
@@ -36,6 +50,7 @@ Mcu.Pin19=PE11
 Mcu.Pin2=PF2
 Mcu.Pin20=PE13
 Mcu.Pin21=PE14
+<<<<<<< HEAD
 Mcu.Pin22=PB10
 Mcu.Pin23=PB11
 Mcu.Pin24=PD8
@@ -60,12 +75,38 @@ Mcu.Pin40=VP_RTC_VS_RTC_Calendar
 Mcu.Pin41=VP_SYS_VS_ND
 Mcu.Pin42=VP_SYS_VS_tim7
 Mcu.Pin43=VP_TIM1_VS_ClockSourceINT
+=======
+Mcu.Pin22=PD8
+Mcu.Pin23=PD9
+Mcu.Pin24=PD10
+Mcu.Pin25=PD11
+Mcu.Pin26=PD12
+Mcu.Pin27=PD13
+Mcu.Pin28=PD14
+Mcu.Pin29=PC8
+Mcu.Pin3=PF3
+Mcu.Pin30=PA9
+Mcu.Pin31=PA10
+Mcu.Pin32=PC12
+Mcu.Pin33=PD2
+Mcu.Pin34=VP_FATFS_VS_SDIO
+Mcu.Pin35=VP_RTC_VS_RTC_Activate
+Mcu.Pin36=VP_RTC_VS_RTC_Calendar
+Mcu.Pin37=VP_SYS_VS_ND
+Mcu.Pin38=VP_SYS_VS_tim7
+Mcu.Pin39=VP_TIM1_VS_ClockSourceINT
+Mcu.Pin4=PF4
+>>>>>>> master
 Mcu.Pin5=PF5
 Mcu.Pin6=PF6
 Mcu.Pin7=PF7
 Mcu.Pin8=PF8
 Mcu.Pin9=PF9
+<<<<<<< HEAD
 Mcu.PinsNb=44
+=======
+Mcu.PinsNb=40
+>>>>>>> master
 Mcu.ThirdPartyNb=0
 Mcu.UserConstants=
 Mcu.UserName=STM32F103ZETx
@@ -109,6 +150,7 @@ PA5.Locked=true
 PA5.Signal=GPIO_Input
 PA9.Mode=Asynchronous
 PA9.Signal=USART1_TX
+<<<<<<< HEAD
 PB10.Mode=I2C
 PB10.Signal=I2C2_SCL
 PB11.Mode=I2C
@@ -117,6 +159,8 @@ PB6.Mode=I2C
 PB6.Signal=I2C1_SCL
 PB7.Mode=I2C
 PB7.Signal=I2C1_SDA
+=======
+>>>>>>> master
 PC0.GPIOParameters=GPIO_Label
 PC0.GPIO_Label=LED1
 PC0.Locked=true

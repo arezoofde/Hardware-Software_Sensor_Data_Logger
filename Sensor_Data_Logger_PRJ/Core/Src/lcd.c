@@ -1,7 +1,12 @@
 #include <stdint.h>
 #include <stdbool.h>
+<<<<<<< HEAD
 #include <stm32f1xx_hal.h>
 #include <string.h>
+=======
+#include <string.h>
+#include "stm32f1xx_hal.h"
+>>>>>>> master
 #include "lcd.h"
 
 
