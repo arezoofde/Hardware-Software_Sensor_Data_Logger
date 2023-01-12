@@ -1,20 +1,60 @@
---> DHT11 Project <--
+# Sensor Data Logger
+Sensor Data Logger is a dashboard for your device sensors. It plots charts that show the values of selected sensors in real-time, even from connected Android Wear devices.
 
-A brief explanation about the DHT11 sensor that we use in our project:
+You can get the app from the [Play Store](https://play.google.com/store/apps/details?id=net.steppschuh.sensordatalogger) or install the latest [apk file](https://github.com/Steppschuh/Sensor-Data-Logger/tree/master/Releases).
 
-DHT11 Temperature & Humidity Sensor features a temperature & humidity sensor complex with a calibrated digital signal output. 
-By using the exclusive digital-signal-acquisition technique and temperature & humidity sensing technology, it ensures high reliability and excellent long-term stability. 
-This sensor includes a resistive-type humidity measurement component and an NTC temperature measurement component, and connects to a high performance microcontroller, offering excellent quality, fast response, anti-interference ability and cost-effectiveness.
 
-In this project, we used "dht.h" and "lcd.h" libraries, which are respectively related to the necessary functions to work with the DHT sensor and the LCD device.
+![Screencast](https://raw.githubusercontent.com/Steppschuh/Sensor-Data-Logger/master/Media/Screencasts/sensor_data_bw_long_500.gif)
 
-First of all, we have specified the necessary features to set up the sensor. These features include information about :
-- the port and pin number to which the sensor is connected
-- type of DHT sensor used in this project (which is DHT11)
-- there is no need to pull data line to power
-- some other features we prefer use as default
 
-Then it's time to configure LCD device to be ready for presenting the results got from sensor.lcd_init() initializes the LCD controller and put it ready to work.lcd_clear() clears whole screen of LCD.
 
-The important part is get data from DHT11 sensor.DHT11_getData() function (which is defined properly in DHT.c file) returns two values.these two values are humidity and temperature.
-through lcd_puts() send humidity value and temperature value to LCD to represent in specified coordinates we define.
+### Tested sensor types
+- Humidity
+- Light RGB
+- Temperature
+
+### Data Lagger 
+| Project Name    | Project Details                                                               | 
+|-----------------|-------------------------------------------------------------------------------|
+| KEYPAD _RTC     | Password Login + Data and Time                                                |
+| RGB_Buzzer      | Light Color Control + Alarm Sound                                             |
+| DHT11           | Temperature and Humidity Show                                                 |
+| LCD16x2         | Show Data & Time + Temp & Hum + RS232 Data + server connection + setPassword + LED + Push BTN |
+| ESP8266         | Send Data to Server                                                           |
+| RS232           | Send UART Data to ESP8266                                                     |
+| SDCARD          | Save Packet in SDCARD                                                         |
+
+### MCU PIN CONFIG
+|  pinout | sensor | Description |
+|---------|--------|-------------|
+| PC0 | LED1 | GREEN LED |
+| PC2 | LED2 | YELLOW LEd |
+|PC3 | LED3 | RED LED |
+|PA5 | PBTN1 | Push Button |
+|PA3 | PBTN2 | Push Button |
+|PA4 | PBTN3 | Push Button |
+|PE9 | RGB | RED in RGB |
+|PE11| RGB | GREEN in RGB |
+|PE13 | RGB | BLUE in RGB |
+|PE14 | Buzzer | Alarm |
+|PD8 | LCD | RS pin |
+|PD9 | LCD | EN pin |
+|PD10 | LCD | D4 pin |
+|PD11 | LCD | D5 pin |
+|PD12 | LCD | D6 pin |
+|PD13 | LCD | D7 pin |
+|PD14 | DHT11 |  Show Temperatre & Humidity |
+|PF2 | KEYPAD | R0 pin |
+|PF3 | KEYPAD  | R1 pin |
+|PF4 | KEYPAD  | R2 pin |
+|PF5 | KEYPAD  | R3 pin |
+|PF6 | KEYPAD  | C0 pin |
+|PF7 | KEYPAD  | C1 pin |
+|PF8 | KEYPAD  | C2 pin |
+|PF9 | KEYPAD  | C3 pin |
+|PA9 | ESP8266 | UART TX |
+|PA10 | ESP8266 | UART RX |
+
+### Format Packet
+| 0 | / | R | / | G | / | B | / | Data | / | time | / | temp | / | hu | / | RED | / | GREEN | / | BLUE | / | SpeakerVolume |
+|---|---|---|---|---|---|---|---|------|---|------|---|------|---|----|---|----|---|----|---|----|---|--------|

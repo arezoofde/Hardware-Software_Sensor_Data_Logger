@@ -60,9 +60,6 @@ Sensor_Data_Logger_PRJ.list \
 OBJCOPY_HEX += \
 Sensor_Data_Logger_PRJ.hex \
 
-OBJCOPY_BIN += \
-Sensor_Data_Logger_PRJ.bin \
-
 
 # All Target
 all: main-build
@@ -91,17 +88,12 @@ Sensor_Data_Logger_PRJ.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Sensor_Data_Logger_PRJ.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "Sensor_Data_Logger_PRJ.bin"
-	@echo 'Finished building: $@'
-	@echo ' '
-
 # Other Targets
 clean:
-	-$(RM) Sensor_Data_Logger_PRJ.bin Sensor_Data_Logger_PRJ.elf Sensor_Data_Logger_PRJ.hex Sensor_Data_Logger_PRJ.list Sensor_Data_Logger_PRJ.map default.size.stdout
+	-$(RM) Sensor_Data_Logger_PRJ.elf Sensor_Data_Logger_PRJ.hex Sensor_Data_Logger_PRJ.list Sensor_Data_Logger_PRJ.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

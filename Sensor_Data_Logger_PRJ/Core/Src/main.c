@@ -19,14 +19,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "fatfs.h"
-#include "DHT.h"
-#include "lcd.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdlib.h"
-#include "string.h"
-#include "stdio.h"
+#include "lcd.h"
+#include <stdio.h>
+#include <string.h>
+#include "DHT.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -89,7 +88,6 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -107,30 +105,17 @@ int main(void)
   MX_USART1_UART_Init();
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
-	DHT_sensor sensor = {
-	GPIOD,
-	GPIO_PIN_14,
-	DHT11,
-	GPIO_NOPULL };
-
-	lcd_init();
-	DHT_data my_data;
-	char msg1[40];
-	char msg2[40];
+  lcd_init();
+  lcd_clear();
+  lcd_puts(0U, 0U, "LCD Project Test");
+  HAL_Delay (1000);
+  lcd_clear();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-	  my_data = DHT_getData(&sensor);
-	  sprintf(msg1 , "Humidity is : %f",my_data.hum);
-	  lcd_puts(0,0,msg1);
-	  sprintf(msg2,"Temprature is : %f",my_data.temp);
-	  lcd_puts(1,0,msg2);
-
-	  //lcd_clear();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
